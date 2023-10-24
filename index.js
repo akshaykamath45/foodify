@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 require("./db")
 const Restaurant = require("./models/restaurant");
-const { createRestaurant, readRestaurant, readAllRestaurants, readRestaurantsByCuisine, updateRestaurant, deleteRestaurant } = require("./controllers/restaurantController");
+const { createRestaurant, readRestaurant, readAllRestaurants, readRestaurantsByCuisine, updateRestaurant, deleteRestaurant, searchRestaurantsByLocation } = require("./controllers/restaurantController");
 
 
 // createRestaurant({
@@ -34,4 +34,6 @@ const { createRestaurant, readRestaurant, readAllRestaurants, readRestaurantsByC
 
 // updateRestaurant("6537e73743222d8c2709937a",updatedRestaurant)
 
-deleteRestaurant("6537e73743222d8c27099382")
+// deleteRestaurant("6537e73743222d8c27099382")
+
+searchRestaurantsByLocation("Mumbai")

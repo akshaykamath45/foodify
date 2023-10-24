@@ -88,14 +88,39 @@ async function deleteRestaurant(restaurantID) {
     }
 }
 
+// search restaurants by location
+async function searchRestaurantsByLocation(restaurantLocation) {
+    try {
+        //location can be city or address
+        const restaurants = await Restaurant.find({
+            $or: [
+                { 'city': restaurantLocation },
+                { 'address': restaurantLocation }
+            ]
+        })
+
+        if (restaurants.length > 0) {
+            console.log(`Restaurants present at location ${restaurantLocation} `, restaurants)
+        } else {
+            console.log(`No restaurants found with location ${restaurantLocation}`)
+        }
+    } catch (error) {
+        console.log("Failed to find the restaurants ", error)
+    }
+
+}
+
 module.exports = {
     createRestaurant,
     readRestaurant,
     readAllRestaurants,
     readRestaurantsByCuisine,
     updateRestaurant,
-    deleteRestaurant
+    deleteRestaurant,
+    searchRestaurantsByLocation
 };
+
+
 
 
 
