@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 const Restaurant = require("../models/restaurant")
 
+// create a restaurant
 async function createRestaurant(restaurant) {
     try {
         const newRestaurant = new Restaurant(restaurant)
@@ -15,6 +16,7 @@ async function createRestaurant(restaurant) {
     }
 }
 
+// read a restaurant
 async function readRestaurant(restaurantName) {
     try {
         const restaurant = await Restaurant.findOne({ name: restaurantName })
@@ -26,11 +28,27 @@ async function readRestaurant(restaurantName) {
     } catch (error) {
         console.log(`Failed to retrieve restaurant ${restaurantName} `, error)
     }
+}
 
+// read all restaurants
+async function readAllRestaurants() {
+    try {
+        const restaurants = await Restaurant.find()
+        if (restaurants) {
+            console.log("All restaurants ", restaurants)
+        } else {
+            console.log("No restaurants found")
+        }
+    } catch (error) {
+        console.log("Failed to retrieve all restaurants ", error)
+    }
 }
 
 
 module.exports = {
     createRestaurant,
-    readRestaurant
+    readRestaurant,
+    readAllRestaurants
 };
+
+

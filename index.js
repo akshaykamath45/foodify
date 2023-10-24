@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 require("./db")
 const Restaurant = require("./models/restaurant");
-const { createRestaurant, readRestaurant } = require("./controllers/restaurantController");
+const { createRestaurant, readRestaurant, readAllRestaurants } = require("./controllers/restaurantController");
 
 
 // createRestaurant({
@@ -26,4 +26,6 @@ const { createRestaurant, readRestaurant } = require("./controllers/restaurantCo
 //   averageRating:4.3
 // })
 
-readRestaurant("Curry House");
+// readRestaurant("Curry House");
+
+readAllRestaurants()
