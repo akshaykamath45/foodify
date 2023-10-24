@@ -44,11 +44,23 @@ async function readAllRestaurants() {
     }
 }
 
+// read restaurants by cuisine
+async function readRestaurantsByCuisine(cuisine) {
+    try {
+        const restaurants = await Restaurant.find({ cuisine: cuisine })
+        if (restaurants.length > 0) {
+            console.log(`Restaurants with cuisine ${cuisine} `, restaurants)
+        } else {
+            console.log(`No restaurants with cuisine ${cuisine}`)
+        }
+    } catch (error) {
+        console.log(`Failed to retrieve all restaurants with cuisine ${cuisine} `, error)
+    }
+}
 
 module.exports = {
     createRestaurant,
     readRestaurant,
-    readAllRestaurants
+    readAllRestaurants,
+    readRestaurantsByCuisine
 };
-
-
