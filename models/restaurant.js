@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const RestaurantModel = new Mongoose.createSchema({
+const restaurantSchema = new mongoose.Schema({
     name: {
         type: String
     },
@@ -31,3 +31,5 @@ const RestaurantModel = new Mongoose.createSchema({
     }
 
 })
+
+module.exports = mongoose.model("Restaurant", restaurantSchema)
