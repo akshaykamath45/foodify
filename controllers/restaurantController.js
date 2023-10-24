@@ -58,9 +58,27 @@ async function readRestaurantsByCuisine(cuisine) {
     }
 }
 
+// update a restaurant by ID
+async function updateRestaurant(restaurantId, updatedRestaurant) {
+    try {
+        const restaurant = await Restaurant.findById({ _id: restaurantId })
+        if (restaurant) {
+            restaurant.set(updatedRestaurant)
+            await restaurant.save()
+            console.log("Updated restaurant ", restaurant)
+        } else {
+            console.log(`Cannot find restaurant to update`)
+        }
+    } catch (error) {
+        console.log("Failed to update the restaurant ", error);
+    }
+}
 module.exports = {
     createRestaurant,
     readRestaurant,
     readAllRestaurants,
-    readRestaurantsByCuisine
+    readRestaurantsByCuisine,
+    updateRestaurant
 };
+
+
