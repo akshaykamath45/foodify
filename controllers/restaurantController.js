@@ -73,12 +73,29 @@ async function updateRestaurant(restaurantId, updatedRestaurant) {
         console.log("Failed to update the restaurant ", error);
     }
 }
+
+// delete a restaurant by ID
+async function deleteRestaurant(restaurantID) {
+    try {
+        const restaurant = await Restaurant.findOneAndDelete({ _id: restaurantID })
+        if (restaurant) {
+            console.log(`Deleted restaurant ${restaurant.name}`)
+        } else {
+            console.log('No restaurant found to delete')
+        }
+    } catch (error) {
+        console.log("Failed to delete the restaurant ", error)
+    }
+}
+
 module.exports = {
     createRestaurant,
     readRestaurant,
     readAllRestaurants,
     readRestaurantsByCuisine,
-    updateRestaurant
+    updateRestaurant,
+    deleteRestaurant
 };
+
 
 
