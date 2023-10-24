@@ -15,7 +15,22 @@ async function createRestaurant(restaurant) {
     }
 }
 
+async function readRestaurant(restaurantName) {
+    try {
+        const restaurant = await Restaurant.findOne({ name: restaurantName })
+        if (restaurant) {
+            console.log("Restaurant found ", restaurant)
+        } else {
+            console.log(`No restaurant found with name ${restaurantName}`)
+        }
+    } catch (error) {
+        console.log(`Failed to retrieve restaurant ${restaurantName} `, error)
+    }
+
+}
+
 
 module.exports = {
-    createRestaurant
+    createRestaurant,
+    readRestaurant
 };
