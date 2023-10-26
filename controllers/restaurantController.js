@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const Restaurant = require("../models/restaurant")
+const User = require("../models/user")
 
 // create a restaurant
 async function createRestaurant(restaurant) {
@@ -160,6 +161,34 @@ async function removeDishFromMenu(restaurantID, dishName) {
     }
 }
 
+
+//add user review and rating
+async function addUserReviewAndRating(userID, restaurantID, reviewText, reviewRating) {
+    try {
+        const restaurant = await Restaurant.findById(restaurantID)
+        const user = User.findById(userID)
+        if (restaurant && user) {
+            const review = {
+                user: userID,
+                text: reviewText,
+                rating: reviewRating
+            }
+            restaurant.reviews.push(review)
+            await restaurant.save()
+
+            console.log(`Added review and rating successfully `, restaurant)
+
+            const populateRestaurant = await restaurant.populate({ path: 'reviews.user', select: 'usernam profilePictureUrl' })
+
+            console.log(`Successfully populated the review for the restaurant ${restaurant.name} `, populateRestaurant)
+        } else {
+            console.log("Wrong restaurant or user")
+        }
+    } catch (error) {
+        console.log(`Failed to add review and rating to the restaurant `, error)
+    }
+}
+
 module.exports = {
     createRestaurant,
     readRestaurant,
@@ -170,12 +199,6 @@ module.exports = {
     searchRestaurantsByLocation,
     filterRestaurantsByRating,
     addDishToMenu,
-    removeDishFromMenu
+    removeDishFromMenu,
+    addUserReviewAndRating
 };
-
-
-
-
-
-
-
