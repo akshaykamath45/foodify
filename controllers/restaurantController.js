@@ -108,6 +108,7 @@ async function searchRestaurantsByLocation(restaurantLocation) {
 
         if (restaurants.length > 0) {
             console.log(`Restaurants present at location ${restaurantLocation} `, restaurants)
+            return restaurants;
         } else {
             console.log(`No restaurants found with location ${restaurantLocation}`)
         }

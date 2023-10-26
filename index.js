@@ -31,6 +31,23 @@ app.post("/restaurants", async (req, res) => {
     }
 })
 
+// searching for restaurants by location
+app.get("/restaurants/search", async (req, res) => {
+    const { location } = req.query
+    console.log(location)
+    try {
+        const restaurant = await searchRestaurantsByLocation(location)
+        if (restaurant) {
+            res.json({ message: `Restaurants found in ${location}`, restaurant: restaurant })
+        } else {
+            res.status(404).json({ error: `No restaurants found in location ${location}` })
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Failed to search restaurants" })
+    }
+})
+
+
 //reading a restaurant API
 app.get("/restaurants/:name", async (req, res) => {
     try {
@@ -74,6 +91,7 @@ app.get("/restaurants/cuisine/:cuisineType", async (req, res) => {
     }
 })
 
+
 //updating a restaurant API
 app.post("/restaurants/:restaurantId", async (req, res) => {
     try {
@@ -101,3 +119,4 @@ app.delete("/restaurants/:restaurantId", async (req, res) => {
         res.status(500).json({ error: "Failed to delete the restaurant" })
     }
 })
+
