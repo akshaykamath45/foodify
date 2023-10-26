@@ -107,7 +107,20 @@ async function searchRestaurantsByLocation(restaurantLocation) {
     } catch (error) {
         console.log("Failed to find the restaurants ", error)
     }
+}
 
+// filter restaurants by rating
+async function filterRestaurantsByRating(restaurantRating) {
+    try {
+        const restaurants = await Restaurant.find({ rating: { $gte: restaurantRating } })
+        if (restaurants.length > 0) {
+            console.log(`Restaurants with minimum rating greater than ${restaurantRating} `, restaurants)
+        } else {
+            console.log(`No restaurants find with ratings greater than ${restaurantRating}`)
+        }
+    } catch (error) {
+        console.log("Failed to filter restaurants by rating ", error)
+    }
 }
 
 module.exports = {
@@ -117,8 +130,10 @@ module.exports = {
     readRestaurantsByCuisine,
     updateRestaurant,
     deleteRestaurant,
-    searchRestaurantsByLocation
+    searchRestaurantsByLocation,
+    filterRestaurantsByRating
 };
+
 
 
 
