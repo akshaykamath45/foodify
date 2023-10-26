@@ -123,6 +123,22 @@ async function filterRestaurantsByRating(restaurantRating) {
     }
 }
 
+// add a dish to restaurant's menu
+async function addDishToMenu(restaurantID, dishToAdd) {
+    try {
+        const restaurant = await Restaurant.findOne({ _id: restaurantID })
+        if (restaurant) {
+            restaurant.menu.push(dishToAdd);
+            await restaurant.save();
+            console.log(`Added dish to the restaurant successfully `, restaurant);
+        } else {
+            console.log(`No restaurant found`)
+        }
+    } catch (error) {
+        console.log('Failed to add dish to the restaurant ', error)
+    }
+}
+
 module.exports = {
     createRestaurant,
     readRestaurant,
@@ -131,8 +147,10 @@ module.exports = {
     updateRestaurant,
     deleteRestaurant,
     searchRestaurantsByLocation,
-    filterRestaurantsByRating
+    filterRestaurantsByRating,
+    addDishToMenu
 };
+
 
 
 
