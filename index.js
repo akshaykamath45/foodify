@@ -1,59 +1,32 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const express = require("express");
 require("./db")
 const Restaurant = require("./models/restaurant");
 const { createRestaurant, readRestaurant, readAllRestaurants, readRestaurantsByCuisine, updateRestaurant, deleteRestaurant, searchRestaurantsByLocation, filterRestaurantsByRating, addDishToMenu, removeDishFromMenu, addUserReviewAndRating, getUserReviewsForRestaurant } = require("./controllers/restaurantController");
 
+const app = express();
+app.use(express.json())
 
-// createRestaurant({
-//   name:"McDonalds",
-//   cuisine:"American",
-//   address:"123 Fake Street",
-//   city:"New York",
-//   rating:4,
-//   menu:[
-//     {
-//       name:"Big Mac",
-//       price:5.99,
-//       description:"A Big Mac is a hamburger sandwich consisting of one or more hamburger patties, sauce, lettuce, cheese, pickles, and onions, served in a slice of bread rolled up in buns.",
-//       isVeg:false
-//     },
-//     {
-//       name:"McChicken",
-//       price:3.99,
-//       description:"McChicken is a hamburger sandwich consisting of one or more hamburger patties, sauce, lettuce, cheese, pickles, and onions, served in a slice of bread rolled up in buns.",
-//       isVeg:false
-//     }],
-//   averageRating:4.3
-// })
+const PORT = process.env.PORT || 3000
 
-// readRestaurant("Curry House");
+app.get("/", (req, res) => {
+    res.send("Foodify Restaurant API")
+})
 
-// readAllRestaurants()
+app.listen(PORT, () => {
+    console.log(`Listening at port ${PORT}`);
+})
 
-// readRestaurantsByCuisine("Indian")
-
-// updateRestaurant("6537e73743222d8c2709937a",updatedRestaurant)
-
-// deleteRestaurant("6537e73743222d8c27099382")
-
-// searchRestaurantsByLocation("Mumbai")
-
-// filterRestaurantsByRating(4)
-
-// const dish={
-//   name: "Paneer Tikka",
-//   price: 199.99,
-//   description: "A popular Indian appetizer made with marinated and grilled cubes of paneer (Indian cottage cheese). Served with mint chutney.",
-//   isVeg: true
-// }
-// addDishToMenu("6537e73743222d8c2709937e",dish)
-
-
-// removeDishFromMenu("6537e73743222d8c2709937e","Paneer Tikka")
-
-
-// addUserReviewAndRating("651713d694ff938e9cbae672","6537e73743222d8c2709937e","Good food!",4.3)
-
-// addUserReviewAndRating("651716042aae85c17d458e57","6537e73743222d8c2709937e","Did not like the food",3.3)
-
-getUserReviewsForRestaurant("6537e73743222d8c2709937e")
+// creating a restaurant API
+app.post("/restaurants", async (req, res) => {
+    try {
+        const restaurant = await createRestaurant(req.body);
+        if (restaurant) {
+            res.json({ message: "Restaurant added successfully", restaurant: restaurant })
+        } else {
+            res.status(401).json({ error: "Cannot add restaurant" })
+        }
+    } catch (error) {
+        res.json.status(500).json({ error: "Failed to add restaurant" })
+    }
+})
