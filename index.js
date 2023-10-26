@@ -44,3 +44,17 @@ app.get("/restaurants/:name", async (req, res) => {
         res.status(500).json({ error: "Failed to read restaurant" })
     }
 })
+
+//reading all restaurants API
+app.get("/restaurants", async (req, res) => {
+    try {
+        const restaurants = await readAllRestaurants()
+        if (restaurants) {
+            res.json({ message: "All restaurants fetched successfully", restaurants: restaurants })
+        } else {
+            res.status(401).json({ error: "Cannot fetch restaurants" })
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Failed to fetch restaurants" })
+    }
+})

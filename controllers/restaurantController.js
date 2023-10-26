@@ -39,6 +39,7 @@ async function readAllRestaurants() {
         const restaurants = await Restaurant.find()
         if (restaurants) {
             console.log("All restaurants ", restaurants)
+            return restaurants;
         } else {
             console.log("No restaurants found")
         }
