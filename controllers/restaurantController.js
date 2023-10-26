@@ -71,6 +71,7 @@ async function updateRestaurant(restaurantId, updatedRestaurant) {
             restaurant.set(updatedRestaurant)
             await restaurant.save()
             console.log("Updated restaurant ", restaurant)
+            return restaurant;
         } else {
             console.log(`Cannot find restaurant to update`)
         }

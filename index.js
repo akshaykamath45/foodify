@@ -73,3 +73,17 @@ app.get("/restaurants/cuisine/:cuisineType", async (req, res) => {
         res.status(500).json({ error: `Failed to fetch restaurants with cuisine ${cuisine}` })
     }
 })
+
+//updating a restaurant API
+app.post("/restaurants/:restaurantId", async (req, res) => {
+    try {
+        const restaurant = await updateRestaurant(req.params.restaurantId, req.body)
+        if (restaurant) {
+            res.json({ message: "Restaurant updated successfully", restaurant: restaurant })
+        } else {
+            res.status(404).json({ error: "No restaurant found to update " })
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Failed to update the restaurant" })
+    }
+})
