@@ -30,3 +30,17 @@ app.post("/restaurants", async (req, res) => {
         res.json.status(500).json({ error: "Failed to add restaurant" })
     }
 })
+
+//reading a restaurant API
+app.get("/restaurants/:name", async (req, res) => {
+    try {
+        const restaurant = await readRestaurant(req.params.name);
+        if (restaurant) {
+            res.json({ message: "Restaurant found", restaurant: restaurant })
+        } else {
+            res.status(401).json({ error: `No restaurant found with name ${req.params.name}` })
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Failed to read restaurant" })
+    }
+})

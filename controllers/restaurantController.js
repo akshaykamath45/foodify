@@ -24,6 +24,7 @@ async function readRestaurant(restaurantName) {
         const restaurant = await Restaurant.findOne({ name: restaurantName })
         if (restaurant) {
             console.log("Restaurant found ", restaurant)
+            return restaurants;
         } else {
             console.log(`No restaurant found with name ${restaurantName}`)
         }
