@@ -162,7 +162,7 @@ async function removeDishFromMenu(restaurantID, dishName) {
 }
 
 
-//add user review and rating
+//add a user review and rating for a restaurant
 async function addUserReviewAndRating(userID, restaurantID, reviewText, reviewRating) {
     try {
         const restaurant = await Restaurant.findById(restaurantID)
@@ -189,6 +189,21 @@ async function addUserReviewAndRating(userID, restaurantID, reviewText, reviewRa
     }
 }
 
+// retrieve user reviews for a restaurant
+async function getUserReviewsForRestaurant(restaurantId) {
+    try {
+        const restaurant = await Restaurant.findById(restaurantId)
+        if (restaurant) {
+            const populateRestaurant = await restaurant.populate({ path: 'reviews.user', select: 'usernam profilePictureUrl' })
+            console.log(`Reviews for the restaurant ${restaurant.name} `, populateRestaurant.reviews)
+        } else {
+            console.log('No restaurant found')
+        }
+    } catch (error) {
+        console.log('Failed to retrieve reviews for the restaurant ', error);
+    }
+}
+
 module.exports = {
     createRestaurant,
     readRestaurant,
@@ -200,5 +215,8 @@ module.exports = {
     filterRestaurantsByRating,
     addDishToMenu,
     removeDishFromMenu,
-    addUserReviewAndRating
+    addUserReviewAndRating,
+    getUserReviewsForRestaurant
 };
+
+

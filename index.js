@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 require("./db")
 const Restaurant = require("./models/restaurant");
-const { createRestaurant, readRestaurant, readAllRestaurants, readRestaurantsByCuisine, updateRestaurant, deleteRestaurant, searchRestaurantsByLocation, filterRestaurantsByRating, addDishToMenu, removeDishFromMenu, addUserReviewAndRating } = require("./controllers/restaurantController");
+const { createRestaurant, readRestaurant, readAllRestaurants, readRestaurantsByCuisine, updateRestaurant, deleteRestaurant, searchRestaurantsByLocation, filterRestaurantsByRating, addDishToMenu, removeDishFromMenu, addUserReviewAndRating, getUserReviewsForRestaurant } = require("./controllers/restaurantController");
 
 
 // createRestaurant({
@@ -52,6 +52,8 @@ const { createRestaurant, readRestaurant, readAllRestaurants, readRestaurantsByC
 // removeDishFromMenu("6537e73743222d8c2709937e","Paneer Tikka")
 
 
-addUserReviewAndRating("651713d694ff938e9cbae672", "6537e73743222d8c2709937e", "Good food!", 4.3)
+// addUserReviewAndRating("651713d694ff938e9cbae672","6537e73743222d8c2709937e","Good food!",4.3)
 
-addUserReviewAndRating("651716042aae85c17d458e57", "6537e73743222d8c2709937e", "Did not like the food", 3.3)
+// addUserReviewAndRating("651716042aae85c17d458e57","6537e73743222d8c2709937e","Did not like the food",3.3)
+
+getUserReviewsForRestaurant("6537e73743222d8c2709937e")
