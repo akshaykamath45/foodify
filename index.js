@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 require("./db")
 const Restaurant = require("./models/restaurant");
-const { createRestaurant, readRestaurant, readAllRestaurants, readRestaurantsByCuisine, updateRestaurant, deleteRestaurant, searchRestaurantsByLocation, filterRestaurantsByRating, addDishToMenu } = require("./controllers/restaurantController");
+const { createRestaurant, readRestaurant, readAllRestaurants, readRestaurantsByCuisine, updateRestaurant, deleteRestaurant, searchRestaurantsByLocation, filterRestaurantsByRating, addDishToMenu, removeDishFromMenu } = require("./controllers/restaurantController");
 
 
 // createRestaurant({
@@ -40,10 +40,13 @@ const { createRestaurant, readRestaurant, readAllRestaurants, readRestaurantsByC
 
 // filterRestaurantsByRating(4)
 
-const dish = {
-    name: "Paneer Tikka",
-    price: 199.99,
-    description: "A popular Indian appetizer made with marinated and grilled cubes of paneer (Indian cottage cheese). Served with mint chutney.",
-    isVeg: true
-}
-addDishToMenu("6537e73743222d8c2709937e", dish)
+// const dish={
+//   name: "Paneer Tikka",
+//   price: 199.99,
+//   description: "A popular Indian appetizer made with marinated and grilled cubes of paneer (Indian cottage cheese). Served with mint chutney.",
+//   isVeg: true
+// }
+// addDishToMenu("6537e73743222d8c2709937e",dish)
+
+
+removeDishFromMenu("6537e73743222d8c2709937e", "Paneer Tikka")

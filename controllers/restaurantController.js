@@ -139,6 +139,27 @@ async function addDishToMenu(restaurantID, dishToAdd) {
     }
 }
 
+// remove a dish from restaurant's menu
+async function removeDishFromMenu(restaurantID, dishName) {
+    try {
+        const restaurant = await Restaurant.findOne({ _id: restaurantID })
+        if (restaurant) {
+            const selectDish = restaurant.menu.find((dish) => dish.name === dishName)
+            if (selectDish) {
+                restaurant.menu = restaurant.menu.filter((dish) => dish.name !== dishName)
+                await restaurant.save();
+                console.log(`Dish ${dishName} removed from the menu successfully `, restaurant)
+            } else {
+                console.log(`No dish found with name ${dishName} in the restaurant ${restaurant.name}`)
+            }
+        } else {
+            console.log(`No restaurant found`)
+        }
+    } catch (error) {
+        console.log("Failed to remove dish from restaurant ", error)
+    }
+}
+
 module.exports = {
     createRestaurant,
     readRestaurant,
@@ -148,7 +169,8 @@ module.exports = {
     deleteRestaurant,
     searchRestaurantsByLocation,
     filterRestaurantsByRating,
-    addDishToMenu
+    addDishToMenu,
+    removeDishFromMenu
 };
 
 
