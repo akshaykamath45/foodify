@@ -89,6 +89,7 @@ async function deleteRestaurant(restaurantID) {
         } else {
             console.log('No restaurant found to delete')
         }
+        return restaurant;
     } catch (error) {
         console.log("Failed to delete the restaurant ", error)
     }

@@ -87,3 +87,17 @@ app.post("/restaurants/:restaurantId", async (req, res) => {
         res.status(500).json({ error: "Failed to update the restaurant" })
     }
 })
+
+//deleting a restaurant API
+app.delete("/restaurants/:restaurantId", async (req, res) => {
+    try {
+        const restaurant = await deleteRestaurant(req.params.restaurantId)
+        if (restaurant) {
+            res.json({ message: "Restaurant deleted successfully", restaurant: restaurant })
+        } else {
+            res.status(404).json({ error: "No restaurant found to delete" })
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Failed to delete the restaurant" })
+    }
+})
