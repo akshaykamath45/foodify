@@ -58,3 +58,18 @@ app.get("/restaurants", async (req, res) => {
         res.status(500).json({ error: "Failed to fetch restaurants" })
     }
 })
+
+//reading restaurants by cuisine API
+app.get("/restaurants/cuisine/:cuisineType", async (req, res) => {
+    const cuisine = req.params.cuisineType
+    try {
+        const restaurants = await readRestaurantsByCuisine(req.params.cuisineType);
+        if (restaurants) {
+            res.json({ message: `All restaurants with ${cuisine} cuisine fetched successfully`, restaurants: restaurants })
+        } else {
+            res.status(401).json({ error: `No restaurants found with ${cuisine} cuisine ` })
+        }
+    } catch (error) {
+        res.status(500).json({ error: `Failed to fetch restaurants with cuisine ${cuisine}` })
+    }
+})

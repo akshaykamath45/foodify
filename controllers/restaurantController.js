@@ -54,6 +54,7 @@ async function readRestaurantsByCuisine(cuisine) {
         const restaurants = await Restaurant.find({ cuisine: cuisine })
         if (restaurants.length > 0) {
             console.log(`Restaurants with cuisine ${cuisine} `, restaurants)
+            return restaurants;
         } else {
             console.log(`No restaurants with cuisine ${cuisine}`)
         }
