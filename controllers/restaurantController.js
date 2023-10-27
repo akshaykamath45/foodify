@@ -140,6 +140,7 @@ async function addDishToMenu(restaurantID, dishToAdd) {
             restaurant.menu.push(dishToAdd);
             await restaurant.save();
             console.log(`Added dish to the restaurant successfully `, restaurant);
+            return restaurant;
         } else {
             console.log(`No restaurant found`)
         }

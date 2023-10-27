@@ -62,6 +62,23 @@ app.get("/restaurant/rating/:minRating", async (req, res) => {
     }
 })
 
+// adding a dish to restaurant's menu
+app.post("/restaurants/:restaurantId/menu", async (req, res) => {
+    const { restaurantId } = req.params;
+    const { dishToAdd } = req.body
+    try {
+        const restaurant = await addDishToMenu(restaurantId, dishToAdd);
+        if (restaurant) {
+            res.json({ message: `Dish ${dishToAdd.name} added succesfully to the restaurant ${restaurant.name} `, restaurant: restaurant })
+        } else {
+            res.status(404).json({ error: "No restaurant found to add dish" })
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Failed to add dish to the restaurant" })
+    }
+
+})
+
 //reading a restaurant API
 app.get("/restaurants/:name", async (req, res) => {
     try {
