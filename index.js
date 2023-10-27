@@ -79,6 +79,23 @@ app.post("/restaurants/:restaurantId/menu", async (req, res) => {
 
 })
 
+// removing a dish from restaurant's menu
+app.delete("/restaurants/:restaurantId/menu/:dishName", async (req, res) => {
+    try {
+        const { restaurantId } = req.params;
+        const { dishName } = req.params;
+        const restaurant = await removeDishFromMenu(restaurantId, dishName)
+        if (restaurant) {
+            res.json({ message: `Removed dish ${dishName} from the restaurant ${restaurant.name} successfully `, restaurant: restaurant })
+        } else {
+            res.status(404).json({ error: "No dish present or wrong restaurant" })
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Failed to delete the dish from restaurnat's menu" })
+    }
+})
+
+
 //reading a restaurant API
 app.get("/restaurants/:name", async (req, res) => {
     try {

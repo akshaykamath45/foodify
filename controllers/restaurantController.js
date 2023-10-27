@@ -158,7 +158,8 @@ async function removeDishFromMenu(restaurantID, dishName) {
             if (selectDish) {
                 restaurant.menu = restaurant.menu.filter((dish) => dish.name !== dishName)
                 await restaurant.save();
-                console.log(`Dish ${dishName} removed from the menu successfully `, restaurant)
+                console.log(`Dish ${dishName} removed from the ${restaurant.name}'s menu successfully `, restaurant)
+                return restaurant;
             } else {
                 console.log(`No dish found with name ${dishName} in the restaurant ${restaurant.name}`)
             }
