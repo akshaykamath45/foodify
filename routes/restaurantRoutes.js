@@ -98,6 +98,24 @@ restaurantRouter.post("/:restaurantId/reviews", async (req, res) => {
     }
 })
 
+// retrieving user reviews for a specific restaurant
+restaurantRouter.get("/:restaurantId/reviews", async (req, res) => {
+    const { restaurantId } = req.params;
+    try {
+        const restaurant = await getUserReviewsForRestaurant(restaurantId)
+        if (restaurant.reviews.length === 0) {
+            res.status(404).json({ error: `No reviews found for the restaurant` })
+        }
+        else if (restaurant) {
+            res.json({ message: `User reviews for restaurant ${restaurant.name}`, reviews: restaurant.reviews })
+        } else {
+            res.status(404).json({ error: `Restaurant not found` })
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Failed to fetch user reviews for the restaurant " })
+    }
+})
+
 //reading a restaurant API
 restaurantRouter.get("/:name", async (req, res) => {
     try {

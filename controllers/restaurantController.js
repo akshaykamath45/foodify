@@ -208,6 +208,7 @@ async function getUserReviewsForRestaurant(restaurantId) {
         if (restaurant) {
             const populateRestaurant = await restaurant.populate({ path: 'reviews.user', select: 'usernam profilePictureUrl' })
             console.log(`Reviews for the restaurant ${restaurant.name} `, populateRestaurant.reviews)
+            return populateRestaurant;
         } else {
             console.log('No restaurant found')
         }
