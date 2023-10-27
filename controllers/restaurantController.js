@@ -123,6 +123,7 @@ async function filterRestaurantsByRating(restaurantRating) {
         const restaurants = await Restaurant.find({ rating: { $gte: restaurantRating } })
         if (restaurants.length > 0) {
             console.log(`Restaurants with minimum rating greater than ${restaurantRating} `, restaurants)
+            return restaurants;
         } else {
             console.log(`No restaurants find with ratings greater than ${restaurantRating}`)
         }
