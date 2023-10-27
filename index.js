@@ -95,6 +95,22 @@ app.delete("/restaurants/:restaurantId/menu/:dishName", async (req, res) => {
     }
 })
 
+// allowing users to add reviews and rating for restaurant
+app.post("/restaurants/:restaurantId/reviews", async (req, res) => {
+
+    const { restaurantId } = req.params
+    const { userId, rating, reviewText } = req.body
+    try {
+        const restaurant = await addUserReviewAndRating(userId, restaurantId, reviewText, rating)
+        if (restaurant) {
+            res.json({ message: `Successfully added review to the restaurant ${restaurant.name} `, restaurant: restaurant })
+        } else {
+            res.status(404).json({ error: "Cannot add review to the restaurant,Please check userId and restaurantId" })
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Failed to add user review and rating to the restaurant" })
+    }
+})
 
 //reading a restaurant API
 app.get("/restaurants/:name", async (req, res) => {

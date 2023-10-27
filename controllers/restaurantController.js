@@ -191,6 +191,8 @@ async function addUserReviewAndRating(userID, restaurantID, reviewText, reviewRa
             const populateRestaurant = await restaurant.populate({ path: 'reviews.user', select: 'usernam profilePictureUrl' })
 
             console.log(`Successfully populated the review for the restaurant ${restaurant.name} `, populateRestaurant)
+
+            return restaurant;
         } else {
             console.log("Wrong restaurant or user")
         }
